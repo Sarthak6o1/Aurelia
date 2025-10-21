@@ -1,0 +1,9 @@
+fastapi
+uvicorn[standard]
+elasticsearch
+sentence-transformers
+python-dotenv
+requests
+numpy
+google-cloud-aiplatform
+google-cloud-texttospeech
