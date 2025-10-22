@@ -26,9 +26,8 @@ def elastic_composite_product_search(
     min_size_value: float = None,
     max_size_value: float = None,
     size_unit: str = None,
-    size: int = 50, # Keep fetching 50 for keyword context
+    size: int = 50,
 ) -> list:
-    
     vector = generate_text_embedding(query, model)
     filters = []
 
@@ -51,12 +50,11 @@ def elastic_composite_product_search(
     if size_unit and size_unit in ["ounce", "pcs"]:
         filters.append({"term": {"size_unit": size_unit.lower()}})
 
-    # Body using script_score as per your provided code
     body = {
         "size": size,
         "query": {
             "bool": {
-                "filter": filters, # Apply filters without affecting score initially
+                "filter": filters,
                 "should": [
                     {
                         "multi_match": {
@@ -73,7 +71,7 @@ def elastic_composite_product_search(
                     },
                     {
                         "script_score": {
-                            "query": {"match_all": {}}, # Apply to all filtered docs
+                            "query": {"match_all": {}},
                             "script": {
                                 "source": """
                                     if (doc['content_embedding'].size() == 0) return 0.0;
@@ -100,7 +98,6 @@ def elastic_composite_product_search(
         print(f"Error: {e}")
         print(f"----------------------------------")
         return []
-
 
 def extract_best_keywords(products: list, model: SentenceTransformer, catalog_texts: list) -> str:
     valid_products = [p for p in products if p]
@@ -134,7 +131,6 @@ def extract_best_keywords(products: list, model: SentenceTransformer, catalog_te
     top_keywords = [kw for kw, score in sorted_keywords[:3]]
     return " ".join(top_keywords)
 
-
 def youtube_search(query: str, max_results: int = 8) -> list:
     if not YOUTUBE_API_KEY:
         print("--- YouTube API Error ---")
@@ -142,7 +138,6 @@ def youtube_search(query: str, max_results: int = 8) -> list:
         print("---------------------------")
         return []
         
-    print(f"Searching YouTube with query: '{query}'")
     endpoint = "https://www.googleapis.com/youtube/v3/search"
     params = { "part": "snippet", "q": query, "type": "video", "maxResults": max_results, "key": YOUTUBE_API_KEY, "safeSearch": "strict" }
     
@@ -155,16 +150,6 @@ def youtube_search(query: str, max_results: int = 8) -> list:
             snippet = item.get("snippet")
             if not vid_id or not snippet: continue
             videos.append({ "title": snippet.get("title", "No Title"), "description": snippet.get("description", ""), "url": f"https://www.youtube.com/watch?v={vid_id}" })
-        print(f"Found {len(videos)} YouTube videos.")
         return videos
     except requests.RequestException as e:
-        print(f"--- YouTube API Error ---")
-        if e.response:
-            try:
-                error_data = e.response.json()
-                print(f"Status Code: {e.response.status_code}")
-                print(f"Message: {error_data.get('error', {}).get('message', 'No message')}")
-            except requests.JSONDecodeError: print(f"Non-JSON error: {e.response.text}")
-        else: print(f"Network error: {e}")
-        print(f"---------------------------")
         return []

@@ -7,3 +7,4 @@ requests
 numpy
 google-cloud-aiplatform
 google-cloud-texttospeech
+google-genai

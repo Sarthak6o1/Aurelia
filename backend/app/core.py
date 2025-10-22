@@ -7,11 +7,6 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-class AppState:
-    def __init__(self):
-        self.model = None
-        self.es_client = None
-
 def load_models_and_clients():
     model = SentenceTransformer('all-MiniLM-L6-v2')
     es_client = Elasticsearch(
