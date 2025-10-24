@@ -1,42 +1,103 @@
-# ⚡ Aurelia - AI-Driven Product Search Engine
+# Aurelia
 
-**Aurelia** is an AI-driven product discovery engine that integrates **Elasticsearch**, **Google Gemini**, and the **YouTube Data API** to deliver intelligent, semantic search and contextual recommendations. The platform enables fast, meaningful product discovery with dynamic video insights and an interactive **AI Assistant** — all powered by advanced AI models and scalable backend infrastructure.
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
----
-
-## 🧩 Tech Stack
-
-**Backend:** FastAPI · Elasticsearch · SentenceTransformers · **Google Gemini**  
-**Frontend:** React.js · Node.js  
-**AI/NLP:** Google Vertex AI (Gemini) · Sentence Transformers  
-**Cloud Services:** YouTube Data API · Google Cloud Console  
-**Tools:** Python · pip · npm · dotenv  
+Aurelia is an AI-powered product search and assistant platform that integrates **FastAPI**, **Google Gemini API**, **Vertex AI**, **Elasticsearch**, and **YouTube Data API** with a **React.js frontend** for seamless interactive experiences.
 
 ---
 
-## 🧠 Project Overview
+## Table of Contents
 
-Aurelia intelligently processes user queries through multiple AI-driven layers, providing both search results and instant assistance:
-1. Performs **semantic and keyword-based search** using Elasticsearch.  
-2. Leverages **Google Gemini** for item extraction, summarization, and powering the **AI Chatbot**.  
-3. Fetches **contextually relevant YouTube videos** using the Data API.  
-4. Provides **instant, conversational help** via the integrated chatbot.  
-5. Displays products and videos through an intuitive **React.js** interface.  
+* [Features](#features)
+* [Tech Stack](#tech-stack)
+* [Project Structure](#project-structure)
+* [Backend Setup](#backend-setup)
+* [Frontend Setup](#frontend-setup)
+* [API Endpoints](#api-endpoints)
+* [How It Works](#how-it-works)
+* [Authors](#authors)
+* [License](#license)
 
 ---
 
-## ⚙️ Installation & Setup
+## Features
 
-### 1️⃣ Clone the Repository
+* **AI / ML:** Semantic Search, NLP, Text Embeddings, Content Summarization, Conversational AI
+* **Cloud / APIs:** Google Gemini API, Vertex AI, YouTube Data API, Elasticsearch Cloud
+* **Backend:** FastAPI, Python, SentenceTransformers
+* **Frontend:** React.js, Modern UI/UX, Node.js
+* **Utilities:** REST APIs, dotenv, JSON handling, API integration
+
+---
+
+## Tech Stack
+
+| Layer      | Technology / Service                                  |
+| ---------- | ----------------------------------------------------- |
+| Backend    | FastAPI, Python, SentenceTransformers                 |
+| AI / ML    | Google Gemini API, Vertex AI, NLP                     |
+| Search     | Elasticsearch Cloud, Hybrid Semantic + Keyword Search |
+| Frontend   | React.js, Node.js, Modern UI Components               |
+| Video Data | YouTube Data API                                      |
+
+---
+
+## Project Structure
+
+```
+AURELIA/
+├── backend/
+│   ├── app/
+│   │   ├── api.py
+│   │   ├── core.py
+│   │   ├── main.py
+│   │   ├── search_service.py
+│   │   ├── bot_api.py            # Chatbot endpoint
+│   │   └── __init__.py
+│   ├── .env
+│   ├── requirements.txt
+│   └── run.py
+├── frontend/
+│   ├── public/
+│   │   └── index.html
+│   ├── src/
+│   │   ├── components/
+│   │   │   ├── ProductList.js
+│   │   │   ├── VideoList.js
+│   │   │   └── UserGuideChatbot.js  # Chatbot UI
+│   │   ├── App.js
+│   │   ├── App.css
+│   │   └── index.js
+│   ├── package.json
+│   └── package-lock.json
+└── README.md
+```
+
+---
+
+## Backend Setup (FastAPI + AI Integration)
+
 ```bash
-git clone [https://github.com/Sarthak6o1/Aurelia.git](https://github.com/Sarthak6o1/Aurelia.git)
-cd Aurelia
-2️⃣ Backend Setup (FastAPI + AI Integration)Bashcd backend
+git clone https://github.com/Sarthak6o1/Aurelia.git
+cd Aurelia/backend
 python -m venv venv
-source venv/bin/activate   # Mac/Linux
-venv\Scripts\activate    # Windows
+
+# Activate virtual environment
+# Mac/Linux
+source venv/bin/activate
+# Windows
+venv\Scripts\activate
+
+# Install dependencies
 pip install -r requirements.txt
-Create a .env file in /backend/ directory:Bash# Google Gemini API Key
+```
+
+### Environment Variables
+
+Create a `.env` file in `/backend/`:
+
+```bash
+# Google Gemini API Key
 GENAI_API_KEY="your_gemini_api_key_here"
 
 # Elasticsearch Configuration
@@ -52,37 +113,67 @@ YOUTUBE_API_KEY="your_youtube_api_key_here"
 PROJECT_ID="your_vertex_project_id_here"
 LOCATION="us-central1"
 MODEL_ID="gemini-2.0-flash-001"
-Run the backend server:Bashpython run.py
-Backend runs on http://localhost:80003️⃣ Frontend Setup (React.js)Bashcd frontend
+```
+
+### Run Backend Server
+
+```bash
+python run.py
+```
+
+Backend runs at: `http://localhost:8000`
+
+---
+
+## Frontend Setup (React.js)
+
+```bash
+cd frontend
 npm install
 npm run start
-Frontend runs on http://localhost:3000🌐 API EndpointsEndpointMethodDescription/api/searchGETPerforms product search and fetches related videos/api/chatbotPOSTHandles conversational queries for the AI AssistantExample Search:http://localhost:8000/api/search?q=wireless headphones
-🧠 How It WorksUser interacts with the UI (query or chat).Search Logic:User inputs a search query.Elasticsearch retrieves relevant catalog items via hybrid (semantic + keyword) search.Gemini model refines search results by identifying precise product names and provides summarization.YouTube API surfaces contextual product videos.Chatbot Logic:User sends a message to the AI Assistant.The request hits the new /api/chatbot endpoint.Gemini model processes the conversational query, providing app guidance or general assistance.The frontend seamlessly displays search results and manages the interactive chatbot UI.🧾 Skills & TechnologiesAI / ML: NLP · Semantic Search · Text Embeddings · Content Summarization · Conversational AI  Cloud / APIs: Google Gemini API · Vertex AI · YouTube Data API · Elasticsearch Cloud  Backend: FastAPI · Python · SentenceTransformers  Frontend: React.js · Modern UI/UX · Node.js  Utilities: REST APIs · dotenv · JSON Handling · API Integration  📁 Project StructureAURELIA/
-├── backend/
-│   ├── app/
-│   │   ├── api.py
-│   │   ├── core.py
-│   │   ├── main.py
-│   │   ├── search_service.py
-│   │   ├── bot_api.py  <-- NEW: Handles Chatbot requests
-│   │   └── __init__.py
-│   ├── .env
-│   ├── requirements.txt
-│   └── run.py
-│
-├── frontend/
-│   ├── public/
-│   │   └── index.html
-│   ├── src/
-│   │   ├── components/
-│   │   │   ├── ProductList.js
-│   │   │   ├── VideoList.js
-│   │   │   └── UserGuideChatbot.js  <-- NEW: Chatbot UI Component
-│   │   ├── App.js
-│   │   ├── App.css
-│   │   └── index.js
-│   ├── package.json
-│   └── package-lock.json
-│
-└── README.md
-👥 AuthorsSarthak  GitHub: https://github.com/Sarthak6o1Shashwat Gupta  GitHub: https://github.com/shashwatguptaa🪪 LicenseLicensed under the MIT License.
+```
+
+Frontend runs at: `http://localhost:3000`
+
+---
+
+## API Endpoints
+
+| Endpoint       | Method | Description                                        |
+| -------------- | ------ | -------------------------------------------------- |
+| `/api/search`  | GET    | Perform product search and fetch related videos    |
+| `/api/chatbot` | POST   | Handle conversational queries for the AI assistant |
+
+**Example Search:**
+`http://localhost:8000/api/search?q=wireless headphones`
+
+---
+
+## How It Works
+
+### Search Logic
+
+1. User inputs a search query in the frontend.
+2. Elasticsearch retrieves relevant catalog items using **hybrid semantic + keyword search**.
+3. Gemini model refines results and provides summaries.
+4. YouTube API fetches contextual product videos.
+
+### Chatbot Logic
+
+1. User sends a message to the AI assistant.
+2. The request hits the `/api/chatbot` endpoint.
+3. Gemini processes the query, providing guidance or assistance.
+4. Frontend displays search results and chatbot responses seamlessly.
+
+---
+
+## Authors
+
+* **Sarthak** – [GitHub](https://github.com/Sarthak6o1)
+* **Shashwat Gupta** – [GitHub](https://github.com/shashwatguptaa)
+
+---
+
+## License
+
+This project is licensed under the **MIT License** – see the [LICENSE](LICENSE) file for details.
